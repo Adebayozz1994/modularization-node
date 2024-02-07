@@ -8,8 +8,8 @@ const {displayWelcome, login, register} = require("../controllers/user.controlle
 
 
 router.get("/", displayWelcome);
-router.get("/login", login);
 router.post("/register", register);
+router.post("/login", login);
 
 
 

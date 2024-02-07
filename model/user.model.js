@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require("bcrypt")
 const uri = "mongodb+srv://Adebayozz:Peterzz1994@cluster0.72sjynx.mongodb.net/?retryWrites=true&w=majority"
 
 mongoose.connect(uri)
@@ -15,6 +16,14 @@ let studentSchema = mongoose.Schema({
     lastName:String,
     email:{type: String, required:true, unique:true},
     password:{type:String, required:true, unique:true}
+})
+
+studentSchema.pre("save", function(next){
+    bcrypt.hash (this.password, 10, (err, hash)=>{
+        console.log(hash);
+        this.password = hash;
+        next();
+    })
 })
 
 let Student = mongoose.model("Student", studentSchema)
