@@ -266,26 +266,34 @@ const login = (req, res) => {
   Student.findOne({ email })
     .then(student => {
       if (!student) {
-        console.log( "User not found" );
+        console.log("User not found");
+        res.status(404).send("User not found");
+        return;
       }
-
-  // Compare the password with the hashed password in mongodb
+  
+      // Compare the password with the hashed password in mongodb
       bcrypt.compare(password, student.password)
         .then(match => {
           if (!match) {
-            console.log("User not found");
-          }else{
-            console.log("Login successful" );
+            console.log("Invalid password");
+            res.status(401).send("Invalid password");
+            return;
           }
+  
+          console.log("Login successful");
+          res.status(200).send("Login successful");
         })
         .catch(error => {
-          console.error(error)
+          console.error(error);
+          res.status(500).send("Internal server error");
         });
     })
     .catch(error => {
-      console.error(error)
+      console.error(error);
+      res.status(500).send("Internal server error");
     });
 };
+
 
 module.exports = { displayWelcome, register, login };
 
