@@ -262,8 +262,8 @@ const register = (req, res) => {
 const login = (req, res) => {
   const { email, password } = req.body;
   
-  // Find the student with the given email
-  Student.findOne({ email })
+  
+  Student.findOne({ email: req.body.email })
     .then(student => {
       if (!student) {
         console.log("User not found");
@@ -271,7 +271,7 @@ const login = (req, res) => {
         return;
       }
   
-      // Compare the password with the hashed password in mongodb
+    
       bcrypt.compare(password, student.password)
         .then(match => {
           if (!match) {
