@@ -1,11 +1,14 @@
 const Student = require("../model/user.model");
 const bcrypt = require('bcrypt')
 const cloudinary = require('cloudinary')
+require("dotenv").config()
+let SECRET = process.env.Secret
+
 
 cloudinary.config({ 
   cloud_name: 'dzaz4b8pw', 
   api_key: '823433429337669', 
-  api_secret: 'c60MIJHlIsNJ_u9xzWMHX3ZEbTM' 
+  api_secret: SECRET
 });
 
 
