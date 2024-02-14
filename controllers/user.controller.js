@@ -1,5 +1,12 @@
 const Student = require("../model/user.model");
 const bcrypt = require('bcrypt')
+const cloudinary = require('cloudinary')
+
+cloudinary.config({ 
+  cloud_name: 'dzaz4b8pw', 
+  api_key: '823433429337669', 
+  api_secret: 'c60MIJHlIsNJ_u9xzWMHX3ZEbTM' 
+});
 
 
 const displayWelcome = (req, res) => {
@@ -292,8 +299,21 @@ const login = (req, res) => {
       console.error(error);
       res.status(500).send("Internal server error");
     });
-};
+
+  };
+  const upLoadFile = (req, res) =>{
+    let image=req.body.myFile;
+    cloudinary.uploader.upload(image, ((result, err)=>{
+     if (err){
+      console.log(err)
+     }else{
+       console.log(result);
+       let storedImage = result.secure_url
+      res.send({message:"finished upload", status:"true" , storedImage})
+     }
+    }))
+  };
 
 
-module.exports = { displayWelcome, register, login };
+module.exports = { displayWelcome, register, login, upLoadFile };
 

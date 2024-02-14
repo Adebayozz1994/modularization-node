@@ -1,7 +1,7 @@
 const express = require ("express")
 const router = express.Router();
 
-const {displayWelcome, login, register} = require("../controllers/user.controller")
+const {displayWelcome, login, register, upLoadFile} = require("../controllers/user.controller")
 
 
 
@@ -10,6 +10,8 @@ const {displayWelcome, login, register} = require("../controllers/user.controlle
 router.get("/", displayWelcome);
 router.post("/register", register);
 router.post("/login", login);
+router.post("/upLoadFile", upLoadFile);
+
 
 
 
