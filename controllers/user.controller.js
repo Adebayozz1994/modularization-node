@@ -261,6 +261,7 @@ const register = (req, res) => {
   student.save()
     .then((user) => {
       console.log("login successfully");
+      res.send({message: "login successfully"});
     })
     .catch((err) => {
       console.log(err);
@@ -291,7 +292,7 @@ const login = (req, res) => {
           }
   
           console.log("Login successful");
-          res.status(200).send("Login successful");
+          res.status(200).send({message:"Login successful", match});
         })
         .catch(error => {
           console.error(error);
